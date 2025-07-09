@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class Task {
 
     private int id;
+    private String titulo;
     private String description;
     private LocalDateTime dateCreation;
     private Status status;
