@@ -1,0 +1,17 @@
+# Ignorar arquivos de build
+target/
+
+# Ignorar arquivos do sistema
+*.log
+*.tmp
+*.bak
+
+# Ignorar arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Ignorar arquivos da IDE (exemplo para VSCode)
+.vscode/
+
+# Ignorar arquivos locais de configuração
+*.env
