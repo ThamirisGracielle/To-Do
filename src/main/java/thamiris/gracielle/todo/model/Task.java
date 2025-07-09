@@ -1,5 +1,6 @@
 package thamiris.gracielle.todo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -11,17 +12,17 @@ import java.time.LocalDateTime;
 @Builder
 public class Task {
 
-    private int id;
-    private String titulo;
+    private Long id;
+    private String title;
     private String description;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dateCreation;
     private Status status;
 
-
-    public enum Status{
-
-        COMPLETED,
-        PENDING,
-
+    public enum Status {
+        CONCLUIDO,
+        PENDENTE,
     }
+
+
 }
