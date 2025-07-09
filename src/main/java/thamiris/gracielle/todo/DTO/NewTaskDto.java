@@ -1,18 +1,31 @@
 package thamiris.gracielle.todo.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import thamiris.gracielle.todo.model.Task;
-
-import java.time.LocalDateTime;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class NewTaskDto  {
+@NoArgsConstructor
+@Builder
+public class NewTaskDto {
 
     private String titulo;
     private String description;
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
