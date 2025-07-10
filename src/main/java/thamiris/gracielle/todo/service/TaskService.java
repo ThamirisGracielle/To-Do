@@ -55,4 +55,21 @@ public class TaskService {
                 .filter(t -> t.getStatus().equals(status))
                 .collect(Collectors.toList());
     }
+
+    public Task update(Long id, NewTaskDto dto){
+        Task task = listById(id);
+
+        task.setTitle(dto.getTitulo());
+        task.setDescription(dto.getDescription());
+
+        listTask.put(id, task);
+
+        return  task;
+
+    }
+
+    public void delete(Long id) {
+        Task task = listById(id);
+        listTask.remove(id);
+    }
 }
