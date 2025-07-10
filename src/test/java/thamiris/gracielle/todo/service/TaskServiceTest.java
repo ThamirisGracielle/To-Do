@@ -10,6 +10,9 @@ import thamiris.gracielle.todo.model.Task;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 @ExtendWith(MockitoExtension.class)
 class TaskServiceTest {
@@ -27,8 +30,8 @@ class TaskServiceTest {
         Task task = taskService.create(dto);
 
         Assertions.assertNotNull(task.getId());
-        Assertions.assertEquals("Estudar",task.getTitle());
-        Assertions.assertEquals("Revisar Testes unitários", task.getDescription());
+        assertEquals("Estudar",task.getTitle());
+        assertEquals("Revisar Testes unitários", task.getDescription());
 
     }
 
@@ -39,9 +42,45 @@ class TaskServiceTest {
 
         List<Task> listAll = taskService.listALL();
 
-        Assertions.assertEquals(2, listAll.size());
+        assertEquals(2, listAll.size());
 
 
     }
+    @Test
+    void deveRetornarTarefaPorId() {
+        Task task = taskService.create(new NewTaskDto("Teste", "Desc"));
+        Task found = taskService.listById(task.getId());
 
+        assertEquals(task.getTitle(), found.getTitle());
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoIdNaoExiste() {
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            taskService.listById(999L);
+        });
+
+        assertEquals("Id não encontrado", exception.getMessage());
+    }
+
+
+    @Test
+    void deveAtualizarTituloEDescricao() {
+        Task task = taskService.create(new NewTaskDto("Antigo", "Desc"));
+
+        NewTaskDto dtoAtualizado = new NewTaskDto("Novo", "Nova desc");
+        Task atualizado = taskService.update(task.getId(), dtoAtualizado);
+
+        assertEquals("Novo", atualizado.getTitle());
+        assertEquals("Nova desc", atualizado.getDescription());
+    }
+
+    @Test
+    void deveExcluirTarefaPorId() {
+        Task task = taskService.create(new NewTaskDto("Excluir", "Desc"));
+
+        taskService.delete(task.getId());
+
+        assertThrows(RuntimeException.class, () -> taskService.listById(task.getId()));
+    }
 }
