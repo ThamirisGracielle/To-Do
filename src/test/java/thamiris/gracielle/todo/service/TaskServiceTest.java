@@ -8,6 +8,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import thamiris.gracielle.todo.DTO.NewTaskDto;
 import thamiris.gracielle.todo.model.Task;
 
+import java.util.List;
+
 
 @ExtendWith(MockitoExtension.class)
 class TaskServiceTest {
@@ -27,6 +29,18 @@ class TaskServiceTest {
         Assertions.assertNotNull(task.getId());
         Assertions.assertEquals("Estudar",task.getTitle());
         Assertions.assertEquals("Revisar Testes unitários", task.getDescription());
+
+    }
+
+    @Test
+    void returnAllSucessfuly(){
+        taskService.create(new NewTaskDto("1","Tarefa 1"));
+        taskService.create(new NewTaskDto("2","Tarefa 2"));
+
+        List<Task> listAll = taskService.listALL();
+
+        Assertions.assertEquals(2, listAll.size());
+
 
     }
 
